@@ -17,7 +17,9 @@ class Utils(discord.ui.View):
     async def resm(self, button : discord.ui.Button, interaction : discord.Interaction):
         self.ctx.voice_client.stop()
         await interaction.response.send_message("Đã Đừng Nhạc")
+        self.stop()
     @discord.ui.button(label="Leave", style=discord.ButtonStyle.red, emoji='❌')
     async def resbsm(self, button : discord.ui.Button, interaction : discord.Interaction):
         await music.leave(self.ctx)
+        self.stop()
 
