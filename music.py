@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from youtubesearchpython import *
 import yt_dlp
+from Button import Utils
 
 async def join(ctx : commands.Context):
     if ctx.author.voice == None:
@@ -20,6 +21,15 @@ async def leave(ctx : commands.Context):
         await ctx.voice_client.disconnect()
         await ctx.respond("Bot Đã Thoát Kênh Âm Nhạc!")
 
+
+async def pause(ctx : commands.Context):
+    ctx.voice_client.pause()
+    await ctx.respond("Đã Tạm Đừng ⏸️")
+
+async def resume(ctx : commands.Context):
+    ctx.voice_client.resume()
+    await ctx.respond("Đã Tiếp Tục ▶️")
+
 async def play(ctx : commands.Context, url : str):
     if ctx.voice_client == None:
         await ctx.author.voice.channel.connect()
@@ -31,22 +41,13 @@ async def play(ctx : commands.Context, url : str):
     YDL_OPTIONS = {
             'format':'bestaudio'
             }
-
-    await ctx.respond(f"Đang Chơi:{url}")
+    view = Utils(ctx)
+    await ctx.respond(f"Đang Chơi:{url}", view=view)
     with yt_dlp.YoutubeDL(YDL_OPTIONS) as ydl:
         info = ydl.extract_info(url, download=False)
         print(info)
         url2 = info['url']
         source = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)
         ctx.voice_client.play(source)
-
-async def pause(ctx : commands.Context):
-    ctx.voice_client.pause()
-    await ctx.respond("Đã Tạm Đừng ⏸️")
-
-async def resume(ctx : commands.Context):
-    ctx.voice_client.resume()
-    await ctx.respond("Đã Tiếp Tục ▶️")
-
 
 

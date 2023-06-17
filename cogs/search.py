@@ -10,19 +10,19 @@ class Choose(discord.ui.View):
         self.title = title
         self.url = url
 
-    @discord.ui.button(label="1", style=discord.ButtonStyle.green)
+    @discord.ui.button(label="1", style=discord.ButtonStyle.green, emoji="🎶")
     async def choose1(self, button : discord.ui.Button, interaction : discord.Interaction):
         await play(self.ctx, self.url[0])
         self.stop()
-    @discord.ui.button(label="2", style=discord.ButtonStyle.green)
+    @discord.ui.button(label="2", style=discord.ButtonStyle.green, emoji="🎶")
     async def choose2(self, button : discord.ui.Button, interaction : discord.Interaction):
         await play(self.ctx, self.url[1])
         self.stop()
-    @discord.ui.button(label="3", style=discord.ButtonStyle.green)
+    @discord.ui.button(label="3", style=discord.ButtonStyle.green, emoji="🎶")
     async def choose3(self, button : discord.ui.Button, interaction : discord.Interaction):
         await play(self.ctx, self.url[2])
         self.stop()
-    @discord.ui.button(label="4", style=discord.ButtonStyle.green)
+    @discord.ui.button(label="4", style=discord.ButtonStyle.green, emoji="🎶")
     async def choose4(self, button : discord.ui.Button, interaction : discord.Interaction):
         await play(self.ctx, self.url[3])
         self.stop()
